@@ -1,0 +1,94 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+{% block title %}
+    {% if news %}
+        编辑新闻
+    {% else %}
+        发布新闻
+    {% endif %}
+{% endblock %}
+{% block head %}
+    <script src="https://unpkg.com/qiniu-js@2.4.0/dist/qiniu.min.js"></script>
+    <script src="{% static 'ueditor/ueditor.config.js' %}"></script>
+    <script src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+    <script src="{% static 'js/write_news.min.js' %}"></script>
+{% endblock %}
+{% block header %}
+    <h1>
+        {% if news %}
+            编辑新闻
+        {% else %}
+            发布新闻
+        {% endif %}
+    </h1>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-10">
+            <div class="box box-primary">
+                <form action="" class="form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="title-form">标题</label>
+                            {% if news %}
+                                <input type="text" class="form-control" name="title" id="title-form"
+                                       value="{{ news.title }}">
+                            {% else %}
+                                <input type="text" class="form-control" name="title" id="title-form">
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="categroy-form">分类</label>
+                            <select class="form-control" name="categroy" id="categroy-form">
+                                {% for categroy in categories %}
+                                    {% if news and news.categroy == categroy.pk %}
+                                        <option selected value="{{ categroy.pk }} ">{{ categroy.name }}</option>
+                                    {% else %}
+                                        <option value="{{ categroy.pk }} ">{{ categroy.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc-form">描述</label>
+                            {% if news %}
+                                <input type="text" class="form-control" name="desc" id="desc-form"
+                                       value="{{ news.desc }}">
+                            {% else %}
+                                <input type="text" class="form-control" name="desc" id="desc-form">
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="thumbnail-form">缩略图</label>
+                            {% if news %}
+                                <input type="text" class="form-control" name="thumbnail" id="thumbnail-form"
+                                       value="{{ news.thumbnail }}">
+                            {% else %}
+                                <input type="text" class="form-control" name="thumbnail" id="thumbnail-form">
+                            {% endif %}
+                            <span class="input-group-btn">
+                            <label class="btn btn-default btn-file ">
+                                上传图片<input hidden type="file" class="btn btn-default" id="thumbnail-btn">
+                            </label>
+                        </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="content-form">内容</label>
+                            {% if news %}
+                                <script id="ueditor" type="text/plain">{{ news.content|safe }}</script>
+                            {% else %}
+                                <script id="ueditor" type="text/plain"></script>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button class="btn btn-primary pull-right" id="submitbtn">发布新闻</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

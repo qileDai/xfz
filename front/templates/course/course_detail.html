@@ -1,0 +1,84 @@
+{% extends 'base/front_base.html' %}
+{% load static %}
+{% block title %}
+    新闻详情
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/course/course_detail.min.css' %}">
+{% endblock %}
+{% block main %}
+    <body>
+    <div class="main">
+        <div class="course-nav">
+            <div class="nav-content">
+                <h3 class="title">在线课堂</h3>
+                <ul class="nav-list">
+                    <li><a class="active" href="#">最新课堂</a></li>
+                    <li><a href="#">投资人说</a></li>
+                    <li><a href="#">明星案例</a></li>
+                    <li><a href="#">创业知识</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="course-wrapper">
+                <div class="course-info">
+
+                    <p class="course-title">{{ course.title }}</p>
+                    <div class="price-group">
+                        <div class="share-group">
+                            <span class="title">分享至：</span>
+                            <a class="weixin share-item"></a>
+                            <a href="#" class="weibo share-item"></a>
+                        </div>
+                        <div class="buy-group">
+                            {% if course.price > 0 %}
+                                <span class="price free">￥{{ course.price }}</span>
+                                <a href="{% url 'course:course_order' course_id=course.pk %}" class="buy-button">立即购买</a>
+                            {% else %}
+                                <span class="price free">免费</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="viedo-group">
+                    <span id="video-info" hidden data-video-url="{{ course.video_url }}"
+                          data-cover-url="{{ course.cover_url }}"></span>
+                    <div id="playercontent"></div>
+                </div>
+            </div>
+            <div class="bottom-wrapper">
+                <div class="course-group">
+                    <div class="item-group">
+                        <p class="item-title">课程讲师</p>
+                        <div class="teacher-group">
+                            <div class="avoutr-group">
+                                <img class="avthor" src="{{ course.teacher.avatar }}" alt="">
+                            </div>
+                            <div class="teacher-info">
+                                <p class="teacher-name">{{ course.teacher.username }}</p>
+                                <p class="teacher-desc">{{ course.teacher.jobtitle }}</p>
+                            </div>
+                        </div>
+                        <div class="item-content">
+                            <p class="content">
+                                {{ course.teacher.profile }}</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="recomed-wrapper">
+                    <div class="course-title">
+                        <span>课程简介:</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    </body>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base/front_base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/course/course_index.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/course/course_detail.min.css' %}">
+{% endblock %}
+{% block title %}
+新闻详情
+{% endblock %}
+{% block main %}
+    <div class="main">
+        <div class="course-nav">
+            <div class="nav-content">
+                <h3 class="title">在线课堂</h3>
+                <ul class="nav-list">
+                    <li ><a class="active" href="#">最新课堂</a></li>
+                    <li><a href="#">投资人说</a></li>
+                    <li><a href="#">明星案例</a></li>
+                    <li><a href="#">创业知识</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrapper">
+            <ul class="course-lsit">
+                {% for course in courses %}
+                    <li>
+                    <a href="{% url 'course:course_detail' course_id=course.pk %}">
+                        <div class="thoubridal-group">
+                            <img src="{{ course.cover_url }}" alt="" class="thoubridal">
+                        </div>
+                        <div class="course-info">
+                            <p class="title">{{ course.title }}</p>
+                            <p class="author">{{ course.teacher.username }}</p>
+                            <p class="price-group">
+                                {% if course.price > 0 %}
+                                    <span class="price">￥{{ course.price }}</span>
+                                {% else %}
+                                    <span class="free">免费</span>
+                                {% endif %}
+
+                            </p>
+                </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}

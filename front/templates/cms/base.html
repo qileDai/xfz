@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{% endblock %} | 小圆桌管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" href="/static/images/xfz.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/bower_components/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/AdminLTE.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/skins/_all-skins.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert.css' %}">
+    <script src="{% static 'adminlte/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'adminlte/dist/js/adminlte.min.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert.min.js' %}"></script>
+    <script src="{% static 'js/xfzajax.min.js' %}"></script>
+    <script src="{% static 'js/xfzalert.min.js' %}"></script>
+    <script src="{% static 'js/message.min.js' %}"></script>
+
+    {% block head %}{% endblock %}
+    <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+    <!-- Google Font -->
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="/" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>CMS</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">小饭桌后台管理系统</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{% static 'images/login.jpg' %}"
+                                 class="user-image" alt="User Image">
+                            <span class="hidden-xs">戴启乐</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="{% static 'images/login.jpg' %}"
+                                     class="img-circle" alt="User Image">
+                                <p>
+                                    戴启乐
+                                    <small>Python web开发工程师</small>
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">个人中心</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">退出登录</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="active">
+                    <a href="#">
+                        <i class="fa fa-home" style="color: #FFFFFF"></i>
+                        <span style="color: #FFFFFF;font-size: 14px">首页</span>
+                    </a>
+                </li>
+                <li class="header" style="font-size: 14px;color: #FFFFFF">新闻管理</li>
+                <li>
+                    <a href="{% url 'cms:news_list' %}">
+                        <i class="fa fa-list"></i>
+                        <span>新闻列表</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'cms:write_news' %}">
+                        <i class="fa fa-edit"></i>
+                        <span>发布新闻</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'cms:news_categroy' %}">
+                        <i class="fa fa-tag"></i>
+                        <span>新闻分类</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'cms:banners' %}">
+                        <i class="fa fa-window-restore"></i>
+                        <span>轮播图</span>
+                    </a>
+                </li>
+                <li class="header" style="font-size: 14px;color: #FFFFFF"> 课程管理</li>
+                <li>
+                    <a href="{% url 'cms:pubcourse' %}">
+                        <i class="fa fa-tv"></i>
+                        <span>发布课程</span>
+                    </a>
+                </li>
+                <li class="header" style="font-size: 14px;color: #FFFFFF">员工管理</li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-group"></i>
+                        <span>员工管理</span>
+                    </a>
+                </li>
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            {% block header %}{% endblock %}
+        </section>
+        <section class="content">
+            {% block content %}{% endblock %}
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.4.0
+        </div>
+        <strong>Copyright &copy; 2019-2021 </strong>
+        <strong style="margin-left: 20px">小饭桌管理系统</strong>
+    </footer>
+
+    <!-- Control Sidebar -->
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+</body>
+</html>
