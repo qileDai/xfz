@@ -10,9 +10,12 @@ from .models import Comment
 from django.contrib.auth import get_user
 from apps.xfzauth.decorator import xfz_login_required
 from django.db.models import Q
+from django.shortcuts import reverse,redirect
+from django.http import HttpResponse
 
 
 # Create your views here.
+
 
 def index(request):
     count = settings.ONE_PAGE_NEWS_COUNT
@@ -106,11 +109,11 @@ def public_content(request):
 def search(request):
     q = request.GET.get('q')
     context = {}
+    newses = News.objects.all().order_by('-pub_tiem')[0:5]
+    context['newses'] = newses
     if q:
         newses = News.objects.filter(Q(title__icontains=q) | Q(content__contains=q))
         context['newses' ] = newses
-
-
     return  render(request,'search/search.html',context=context)
 
 
@@ -120,3 +123,12 @@ def hot_news(request):
         'newes':newes
     }
     return render(request,'comment/siderbar.html',context=context)
+
+def more(request):
+    count = settings.ONE_PAGE_NEWS_COUNT
+    newes = News.objects.all().order_by('-pub_tiem')[0:count]
+    context = {
+       'newes':newes
+    }
+    return render(request,'news/more.html',context=context)
+

@@ -5,16 +5,17 @@
     搜索
 {% endblock %}
 {% block head %}
+    <link rel="stylesheet" href="{% static 'css/news/index.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/search/search.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/news/news_detail.min.css' %}">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_681895_w5poic4qj6vfgvi.css">
 {% endblock %}
 {% block main %}
-    <div class="search-main">
+     <div class="search-main">
         <div class="main-content-wrapper">
             <div class="search-group">
                 <form action="" method="get">
-                    <input type="text" name="q" value="{{ query }}" class="search-input" placeholder="请输入关键字">
+                    <input type="text" name="q" value="{{ query }}" class="search-input" placeholder="可输入新闻关键词、作者名称搜索">
                     <input type="submit" class="search-btn" value="搜索">
                 </form>
             </div>
@@ -38,14 +39,9 @@
                                     <span class="pub-time">{{ news.pub_tiem|time_since }}</span>
                                     <span class="author">{{ news.author.username }}</span>
                                 </p>
-
                             </li>
-
                         {% endwith %}
-
                     {% endfor %}
-
-
                 </ul>
             </div>
         </div>

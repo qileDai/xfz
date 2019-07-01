@@ -3,6 +3,8 @@
 from django.urls import path
 from . import views
 from . import course_view as cviews
+from . import staff_views as staffviews
+
 
 
 app_name = 'cms'
@@ -34,4 +36,13 @@ urlpatterns +=[
     path('pubcourse/',cviews.pubCourse.as_view(),name='pubcourse'),
 
 ]
+
+urlpatterns +=[
+    path('staffs/',staffviews.staffs_view,name='staffs'),
+    path('add_staffs/',staffviews.AddStaffsView.as_view(),name='add_staffs'),
+    path('delete_staffs/',staffviews.delete_staffs,name='delete_staffs'),
+
+
+]
+
 

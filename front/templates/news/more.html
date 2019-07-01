@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base/front_base.html' %}
+{% load static %}
+{% load news_filters %}
+{% block title %}更多{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/news/index.min.css' %}">
+    <script src="{% static 'arttemplate/template-web.js' %}"></script>
+    <script src="{% static 'js/index.min.js' %}"></script>
+{% endblock %}
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="news-wrapper">
+                <div class="list-out-group">
+                    <ul class="list-tab">
+                        <li class="active" data-categroy="0"><a href="javascript:void(0)">最新资讯</a></li>
+                    </ul>
+                    <ul class="list-inner-group">
+                        {% for news in newes %}
+                            <li class="thumbail-group">
+                                <a href="{% url 'news:news_detail' news_id=news.pk %}">
+                                    <img src="{{ news.thumbnail }}" alt="">
+                                </a>
+                            </li>
+                            <li class="news-group">
+                                <p class="title">
+                                    <a href="{% url 'news:news_detail' news_id=news.pk %}">{{ news.title }}</a>
+                                </p>
+                                <p class="desc">{{ news.desc }}</p>
+                                <p class="more">
+                                    <span class="catgory">{{ news.categroy.name }}</span>
+                                    <span class="pub-time">{{ news.pub_tiem|time_since }}</span>
+                                    <span class="author">{{ news.author.username }}</span>
+                                </p>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+
+                    <div class="load-more-group">
+                        <button class="load-more" id="load-more">查看更多</button>
+                    </div>
+                </div>
+            </div>
+            {% include 'comment/siderbar.html' %}
+        </div>
+    </div>
+{% endblock %}

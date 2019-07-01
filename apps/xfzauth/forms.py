@@ -21,8 +21,8 @@ class RegisteForm(forms.Form,FormMixin):
     password2 = forms.CharField(max_length=20,min_length=6,
                                 error_messages={"max_length": "密码不能超过20个字符！", "min_lemgth": "密码不能小于6个字符"}
                                 )
-    image_catpha = forms.CharField(max_length=4,min_length=4)
-    sms_captha = forms.CharField(max_length=4,min_length=4)
+    img_captcha = forms.CharField(max_length=4,min_length=4)
+    sms_captcha = forms.CharField(max_length=4,min_length=4)
 
     def clean(self):
         cleaned_data = super(RegisteForm, self).clean()
@@ -35,21 +35,24 @@ class RegisteForm(forms.Form,FormMixin):
         if password1 != password2:
             raise forms.ValidationError('两次密码输入不一致！')
 
-        image_catpha = cleaned_data.get('image_catpha')
-        print(image_catpha)
-        cached_image_catpha = cache.get(image_catpha)
-        print(cached_image_catpha)
+        img_captcha = cleaned_data.get('img_captcha')
+        print('sss')
+        print(img_captcha)
+        cached_img_captcha = cache.get(img_captcha)
 
-        if not cached_image_catpha or cached_image_catpha != image_catpha:
-            raise forms.ValidationError("图形验证码错误！")
+        print(cached_img_captcha)
+
+        # if not cached_img_captcha or cached_img_captcha != img_captcha:
+        #     raise forms.ValidationError("图形验证码错误！")
 
         telephone = cleaned_data.get('telephone')
         print(telephone)
-        sms_captcha = cleaned_data.get('sms_captha')
+        sms_captcha = cleaned_data.get('sms_captcha')
+        print(sms_captcha)
         cached_sms_captcha = cache.get(telephone)
 
-        if not cached_sms_captcha or cached_sms_captcha.lower() != sms_captcha.lower():
-            raise forms.ValidationError('短信验证码错误！')
+        # if not cached_sms_captcha or cached_sms_captcha.lower() != sms_captcha.lower():
+        #     raise forms.ValidationError('短信验证码错误！')
 
         exists = User.objects.filter(telephone=telephone).exists()
         if exists:

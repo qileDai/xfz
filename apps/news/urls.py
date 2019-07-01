@@ -9,6 +9,8 @@ urlpatterns = [
     path('public_content/',views.public_content,name='public_content'),
     path('search/',views.search,name='search'),
     path('hot_news/',views.hot_news,name='hot_news'),
+    path('more/',views.more,name='more'),
+
 
 
 

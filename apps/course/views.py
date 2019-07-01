@@ -1,11 +1,12 @@
 #encoding:utf-8
 
 from django.shortcuts import render
-from .models import Course,Teacher
+from .models import Course,Teacher,CourseOrder
 from django.conf import settings
 from utils import restful
 import time,hmac,os,hashlib
 from hashlib import md5
+from apps.xfzauth.decorator import xfz_login_required
 def course_index(request):
     context = {
         'courses':Course.objects.all()
@@ -44,9 +45,12 @@ def course_token(request):
     token = '{0}_{1}_{2}'.format(signature, USER_ID, expiration_time)
     return restful.result(data={'token': token})
 
+@xfz_login_required
 def course_order(request,course_id):
     course = Course.objects.get(pk=course_id)
+    order = CourseOrder.objects.create(course=course, buyer=request.user, status=1, amout=course.price)
     context = {
-        'course':course
+        'course':course,
+        'order':order
     }
     return render(request,'course/course_order.html',context=context)

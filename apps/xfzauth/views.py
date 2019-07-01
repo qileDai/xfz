@@ -3,7 +3,7 @@
 from django.contrib.auth import login,logout,authenticate
 from django.views.decorators.http import require_POST
 from  .forms import LoginForm
-from django.shortcuts import redirect,reverse
+from django.shortcuts import redirect,reverse,render
 from django.http import JsonResponse,HttpResponse
 from utils.captcha.xfzcaptcha import Captcha
 from io import BytesIO
@@ -76,7 +76,7 @@ def register(request):
         password = form.cleaned_data.get("password1")
         user = User.objects.create_user(telephone=telephone,username=username,password=password)
         login(request,user)
-        return restful.ok()
+        return render(request,'news/index.html')
     else:
         return restful.params_error(message=form.get_errors())
 
